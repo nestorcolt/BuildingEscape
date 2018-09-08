@@ -1,0 +1,13 @@
+#########################
+#Ignoring UE4 files
+*/Build
+*/Binaries
+*/DerivedDataCache
+*/Intermediate
+*/Saved
+BuildingScape/Content/StarterContent/
+
+##########################
+#Ignoring VS files
+*.VC.db
+
