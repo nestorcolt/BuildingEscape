@@ -9,10 +9,13 @@ BuildingScape/Content/StarterContent/
 BuildingScape/Content/
 *.suo
 *.uasset
+
+
 ##########################
 #Ignoring VS files
 *.VC.db
 *.VC.db-wal
 *.VC.db-shm
 *.VC.opendb
+*.vs/
 
