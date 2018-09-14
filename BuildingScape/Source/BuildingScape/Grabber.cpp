@@ -4,6 +4,8 @@
 #include "Engine/World.h"
 #include "GameFramework/Actor.h"
 #include "GameFramework/PlayerController.h"
+#include "DrawDebugHelpers.h"
+
 
 #define OUT
 
@@ -36,16 +38,32 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 	// ...
 
 	//get player view point this tick
-	FVector PlayerViewPointLLocation;
+	FVector PlayerViewPointLocation;
 	FRotator PlayerViewPointLRotation;
 
 	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(
-		OUT PlayerViewPointLLocation,
+		OUT PlayerViewPointLocation,
 		OUT PlayerViewPointLRotation
 	);
 
 	//LOG OUT to test
-	UE_LOG(LogTemp, Warning, TEXT("Location At: %s Rotation at: %s"), *PlayerViewPointLLocation.ToString(), *PlayerViewPointLRotation.ToString())
+	//UE_LOG(LogTemp, Warning, TEXT("Location At: %s Rotation at: %s"), *PlayerViewPointLLocation.ToString(), *PlayerViewPointLRotation.ToString())
+
+	//Create a Vector pointing up to the character position
+	FVector LineTraceEnd = PlayerViewPointLocation + (PlayerViewPointLRotation.Vector() * Reach);
+
+	//Draw a debug line
+	DrawDebugLine(
+		
+		GetWorld(), 
+		PlayerViewPointLocation, 
+		LineTraceEnd,
+		FColor(255,0,0),
+		false,
+		0.f,
+		0.f,
+		10.f
+	);
 
 }
 
