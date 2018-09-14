@@ -31,8 +31,7 @@ void UGrabber::BeginPlay()
 
 
 // Called every frame
-void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
-{
+void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
@@ -54,16 +53,39 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 
 	//Draw a debug line
 	DrawDebugLine(
-		
-		GetWorld(), 
-		PlayerViewPointLocation, 
+
+		GetWorld(),
+		PlayerViewPointLocation,
 		LineTraceEnd,
-		FColor(255,0,0),
+		FColor(255, 0, 0),
 		false,
 		0.f,
 		0.f,
 		10.f
 	);
+
+	/// Setup query parameters
+	FCollisionQueryParams TraceParameters(FName(TEXT("")), true, GetOwner());
+
+	/// Line trace:
+	FHitResult Hit;
+	GetWorld()->LineTraceSingleByObjectType(
+
+		OUT Hit,
+		PlayerViewPointLocation,
+		LineTraceEnd,
+		FCollisionObjectQueryParams(ECollisionChannel::ECC_PhysicsBody),
+		TraceParameters
+	);
+
+
+	//See what we hit
+	AActor* ActorHit = Hit.GetActor();
+
+	if (ActorHit)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Actor Hit (LineTrace - AKA RayCasting): %s"), *ActorHit->GetName())
+	}
 
 }
 
