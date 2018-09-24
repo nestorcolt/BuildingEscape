@@ -5,8 +5,13 @@
 #include "Engine/World.h"
 #include "GameFramework/Actor.h"
 #include "GameFramework/PlayerController.h"
+#include "Components/ActorComponent.h"
+#include "Components/PrimitiveComponent.h"
 
+#define OUT
 
+// ------------------------------------------------------------------------------------------------------------
+// 
 
 // Sets default values for this component's properties
 UOpenDoor::UOpenDoor()
@@ -24,7 +29,7 @@ void UOpenDoor::BeginPlay()
 {
 	Super::BeginPlay();
 	Owner = GetOwner();
-	ActorThatOpenDoor =  GetWorld()->GetFirstPlayerController()->GetPawn();
+
 	//Set default door rotation stage
 	Owner->SetActorRotation(DefaultRotation);
 
@@ -49,7 +54,7 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 
 	// ... this is check every frame in the fame. VERY, VERY POWERFULL !
 
-	if (PressurePlate->IsOverlappingActor(ActorThatOpenDoor))
+	if (MassOfActorsInPlate() > 70.f)
 	{
 		OpenDoor();
 		LastDoorOpenTime = GetWorld()->GetRealTimeSeconds();
@@ -61,3 +66,22 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 	}
 }
 
+// ------------------------------------------------------------------------------------------------------------
+// 
+
+
+float UOpenDoor::MassOfActorsInPlate() 
+{
+
+	float TotalMass = 0.f;
+	TArray<AActor*> OverlapingActors;
+	PressurePlate->GetOverlappingActors(OUT OverlapingActors);
+
+	for (const auto& actor : OverlapingActors)
+	{
+		TotalMass += actor->FindComponentByClass<UPrimitiveComponent>()->GetMass();
+		UE_LOG(LogTemp, Warning, TEXT(" Actors: %s"), *actor->GetName());
+	}
+
+	return TotalMass;
+}

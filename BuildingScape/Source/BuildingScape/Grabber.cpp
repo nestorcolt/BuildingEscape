@@ -8,7 +8,7 @@
 
 #define OUT
 
-/// ------------------------------------------------------------------------------------------------------------ 
+// ------------------------------------------------------------------------------------------------------------ 
 
 // Sets default values for this component's properties
 UGrabber::UGrabber()
@@ -20,7 +20,7 @@ UGrabber::UGrabber()
 	// ...
 }
 
-/// ------------------------------------------------------------------------------------------------------------ 
+// ------------------------------------------------------------------------------------------------------------ 
 
 // Called when the game starts
 void UGrabber::BeginPlay()
@@ -31,7 +31,7 @@ void UGrabber::BeginPlay()
 	SetupInputComponent();
 }
 
-/// ------------------------------------------------------------------------------------------------------------ 
+// ------------------------------------------------------------------------------------------------------------ 
 
 void UGrabber::SetupInputComponent() 
 
@@ -50,7 +50,7 @@ void UGrabber::SetupInputComponent()
 	}
 }
 
-/// ------------------------------------------------------------------------------------------------------------ 
+// ------------------------------------------------------------------------------------------------------------ 
 
 //Look for attached physics handle
 void UGrabber::FindPhysicsHandleComponent()
@@ -68,7 +68,7 @@ void UGrabber::FindPhysicsHandleComponent()
 	}
 }
 
-/// ------------------------------------------------------------------------------------------------------------ 
+// ------------------------------------------------------------------------------------------------------------ 
 
 // Called every frame
 void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) 
@@ -86,16 +86,17 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 	}
 }
 
-/// ------------------------------------------------------------------------------------------------------------ 
+// ------------------------------------------------------------------------------------------------------------ 
+// TODO Hacer mas
 
 void UGrabber::Grab() 
 {
-	//Line Trace and see if we reach any actor with physics body collision channel set
+	// Line Trace and see if we reach any actor with physics body collision channel set
 	auto HitResult = GetPhysicsBodyInReach();
 	auto ComponentToGrab = HitResult.GetComponent();
 	auto ActorHit = HitResult.GetActor();
 
-	//if we hit something then attach it a physics handle
+	// if we hit something then attach it a physics handle
 	if (ActorHit)
 	{
 		PhysicsHandle->GrabComponentAtLocationWithRotation(
@@ -108,13 +109,13 @@ void UGrabber::Grab()
 
 }
 
-/// ------------------------------------------------------------------------------------------------------------ 
+// ------------------------------------------------------------------------------------------------------------ 
 
 void UGrabber::Release() {
 	PhysicsHandle->ReleaseComponent();
 }
 
-/// ------------------------------------------------------------------------------------------------------------ 
+// ------------------------------------------------------------------------------------------------------------ 
 
 FVector UGrabber::LineTrace(FString Trace) {
 
@@ -141,7 +142,7 @@ FVector UGrabber::LineTrace(FString Trace) {
 	return LineTrace;
 }
 
-/// ------------------------------------------------------------------------------------------------------------ 
+// ------------------------------------------------------------------------------------------------------------ 
 
 
 FHitResult UGrabber::GetPhysicsBodyInReach() 
@@ -176,4 +177,4 @@ FHitResult UGrabber::GetPhysicsBodyInReach()
 	return HitResult;
 }
 
-/// ------------------------------------------------------------------------------------------------------------ 
+// ------------------------------------------------------------------------------------------------------------ 
