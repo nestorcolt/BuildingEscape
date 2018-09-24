@@ -21,9 +21,15 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
+
+
+	
+
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
+	
 
 private:
 	float Reach = 100.f;
@@ -33,5 +39,11 @@ private:
 
     void Grab();
     void Release();
-	
+
+	//Finds the handle component if exists
+	void FindPhysicsHandleComponent();
+
+	//Attachs the physics component if exist
+	void SetupInputComponent();
+    FHitResult GetPhysicsBodyInReach() const;
 };
