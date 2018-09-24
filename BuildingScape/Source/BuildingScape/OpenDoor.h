@@ -15,6 +15,7 @@ class BUILDINGSCAPE_API UOpenDoor : public UActorComponent
 public:	
 	// Sets default values for this component's properties
 	UOpenDoor();
+	
 
 protected:
 	// Called when the game starts

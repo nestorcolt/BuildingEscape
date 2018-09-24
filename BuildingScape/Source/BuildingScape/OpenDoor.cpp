@@ -33,6 +33,8 @@ void UOpenDoor::BeginPlay()
 	//Set default door rotation stage
 	Owner->SetActorRotation(DefaultRotation);
 
+	AActor* Player = GetWorld()->GetFirstPlayerController();
+	UE_LOG(LogTemp, Warning, TEXT("Player: %s"), *Player->GetName());
 	
 }
 
