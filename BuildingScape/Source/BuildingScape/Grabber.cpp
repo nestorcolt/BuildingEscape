@@ -29,6 +29,7 @@ void UGrabber::BeginPlay()
 	// ...
 	FindPhysicsHandleComponent();
 	SetupInputComponent();
+
 }
 
 // ------------------------------------------------------------------------------------------------------------ 

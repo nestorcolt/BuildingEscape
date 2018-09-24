@@ -47,5 +47,5 @@ private:
 
 	//  
 	float MassOfActorsInPlate();
-	
+
 };

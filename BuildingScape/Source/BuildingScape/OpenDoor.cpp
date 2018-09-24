@@ -33,8 +33,12 @@ void UOpenDoor::BeginPlay()
 	//Set default door rotation stage
 	Owner->SetActorRotation(DefaultRotation);
 
-	AActor* Player = GetWorld()->GetFirstPlayerController();
+	AActor* Player = GetWorld()->GetFirstPlayerController()->GetPawn();
+	float PlayerMass = Player->FindComponentByClass<UPrimitiveComponent>()->GetMass();
+
 	UE_LOG(LogTemp, Warning, TEXT("Player: %s"), *Player->GetName());
+	//UE_LOG(LogTemp, Warning, TEXT("PlayerMass: %s"), PlayerMass);
+
 	
 }
 
@@ -87,3 +91,4 @@ float UOpenDoor::MassOfActorsInPlate()
 
 	return TotalMass;
 }
+
