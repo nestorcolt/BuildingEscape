@@ -30,14 +30,20 @@ void UOpenDoor::BeginPlay()
 	Super::BeginPlay();
 	Owner = GetOwner();
 
+	if (!PressurePlate)
+	{
+		UE_LOG(LogTemp, Error, TEXT("PresurePlate component of %s not found"), *GetOwner()->GetName());
+	}
+
 	//Set default door rotation stage
 	Owner->SetActorRotation(DefaultRotation);
 
+	float PlayerMass = 0.f;
 	AActor* Player = GetWorld()->GetFirstPlayerController()->GetPawn();
-	float PlayerMass = Player->FindComponentByClass<UPrimitiveComponent>()->GetMass();
+	PlayerMass = Player->FindComponentByClass<UPrimitiveComponent>()->GetMass();
 
 	UE_LOG(LogTemp, Warning, TEXT("Player: %s"), *Player->GetName());
-	//UE_LOG(LogTemp, Warning, TEXT("PlayerMass: %s"), PlayerMass);
+	UE_LOG(LogTemp, Warning, TEXT("PlayerMass: %d"), PlayerMass);
 
 	
 }
@@ -81,6 +87,7 @@ float UOpenDoor::MassOfActorsInPlate()
 
 	float TotalMass = 0.f;
 	TArray<AActor*> OverlapingActors;
+	if (!PressurePlate) { return TotalMass; }
 	PressurePlate->GetOverlappingActors(OUT OverlapingActors);
 
 	for (const auto& actor : OverlapingActors)

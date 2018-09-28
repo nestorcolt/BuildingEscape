@@ -32,14 +32,14 @@ public:
 
 private:
 
-	AActor * Owner;
+	AActor * Owner = nullptr;
 
 	UPROPERTY(EditAnywhere)
 	float OpenAngle = 20.F;
 	FRotator DefaultRotation = FRotator(0.f, 90.f, 0.f);
 
 	UPROPERTY(EditAnywhere)
-	ATriggerVolume* PressurePlate;
+	ATriggerVolume* PressurePlate = nullptr;
 
 	//-
 	float DoorCloseDelay = 0.25f;
