@@ -48,17 +48,6 @@ void UOpenDoor::BeginPlay()
 	
 }
 
-void UOpenDoor::OpenDoor() 
-{
-	FRotator Rotation = FRotator(0.f, OpenAngle, 0.f);
-	Owner->SetActorRotation(Rotation);
-}
-
-void UOpenDoor::CloseDoor() {
-	FRotator Rotation = FRotator(DefaultRotation);
-	Owner->SetActorRotation(Rotation);
-}
-
 // Called every frame
 void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
@@ -66,15 +55,14 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 
 	// ... this is check every frame in the fame. VERY, VERY POWERFULL !
 
-	if (MassOfActorsInPlate() > 70.f)
+	if (MassOfActorsInPlate() > TriggerMass)
 	{
-		OpenDoor();
-		LastDoorOpenTime = GetWorld()->GetRealTimeSeconds();
+		OnOpenEvent.Broadcast();
 	}
 
-	if (GetWorld()->GetTimeSeconds() - LastDoorOpenTime > DoorCloseDelay)
+	else
 	{
-		CloseDoor();
+		OnCloseEvent.Broadcast();
 	}
 }
 
